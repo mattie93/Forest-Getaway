@@ -1,0 +1,44 @@
+public class ChangeSkybox : MonoBehaviour
+{
+    public Material day;
+    public Material night;
+    public GameObject lightObject;
+    public Light sun;
+
+    public GameObject morningSounds;
+    public GameObject nightSounds;
+
+    void Start()
+    {
+        //Setting up the two separate groups of lights and sounds for Day and Night modes
+        this.GetComponent<Skybox>().material = day;
+        lightObject = GameObject.Find("Directional Light");
+        sun = lightObject.GetComponent<Light>();
+      
+        //Everything starts off as being "On"
+        sun.enabled = true;
+        morningSounds.SetActive(true);
+        nightSounds.SetActive(false);
+    }
+
+    void Update()
+    {
+        //If the player hits "Z", they will activate Day mode, which shuts off the Night audio
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            this.GetComponent<Skybox>().material = day;
+            sun.enabled = true;
+            morningSounds.SetActive(true);
+            nightSounds.SetActive(false);
+        }
+       
+        //If the player hits "X", they will activate Night mode, which shuts off the lights and the Day audio
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            this.GetComponent<Skybox>().material = night;
+            sun.enabled = false;
+            morningSounds.SetActive(false);
+            nightSounds.SetActive(true);
+        }
+    }
+}
