@@ -1,0 +1,30 @@
+public class GuitarPlayAndPause : MonoBehaviour
+{
+    public AudioClip guitarSong;
+    public AudioSource guitarSource;
+    
+    void Start()
+    {
+        //Selects the Audio Source on the guitar game object
+        guitarSource = gameObject.GetComponent<AudioSource>();
+    }
+
+    void OnMouseDown()
+    {
+        //Sets the guitar's Audio Source to enabled/checked in Editor
+        guitarSource.enabled = true;
+
+        //If the guitar audio is not playing, it should start to play
+        if (!guitarSource.isPlaying)
+        {
+            guitarSource.clip = guitarSong;
+            guitarSource.Play();
+        }
+    }
+
+    void OnMouseUp()
+    {
+        //The guitar audio is only enabled when the player holds the left mouse button down
+        guitarSource.enabled = false;
+    }
+}
